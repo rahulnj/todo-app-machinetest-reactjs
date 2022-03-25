@@ -1,9 +1,15 @@
 import React from 'react'
 
-const AddTimeAndDateButton = ({ setToggleCalendar }) => {
+const AddTimeAndDateButton = ({ setToggleCalendar, setToggleTaskList }) => {
+
+    const handleAddDateAndTimeButton = () => {
+        setToggleCalendar(true)
+        setToggleTaskList(false)
+    }
+
     return (
         <button className='button_withtext'
-            onClick={() => setToggleCalendar(true)}
+            onClick={handleAddDateAndTimeButton}
         >
             Add Time and Date
             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">

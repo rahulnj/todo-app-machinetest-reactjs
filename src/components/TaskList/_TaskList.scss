@@ -1,15 +1,15 @@
 @import "../../_base.scss";
 
-.calendar {
+.tasklist {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     position: absolute;
-    top: 140px;
-    right: 230px;
+    top: 110px;
+    right: 240px;
     width: 500px;
-    height: 400px;
+    height: 450px;
     max-width: 340px;
     padding: 10px 10px 20px 10px;
     background: #fdfdfd;
@@ -17,25 +17,25 @@
 }
 
 @media only screen and (max-width: $breakpoint-x-large) {
-    .calendar {
+    .tasklist {
         position: absolute;
-        top: 100px;
-        right: 45px;
+        top: 72px;
+        right: 70px;
     }
 }
 
 @media only screen and (max-width: $breakpoint-large) {
-    .calendar {
+    .tasklist {
         position: absolute;
-        top: 100px;
+        top: 72px;
         right: 10px;
     }
 }
 
 @media only screen and (max-width: $breakpoint-medium) {
-    .calendar {
+    .tasklist {
         position: absolute;
-        top: 100px;
+        top: 72px;
         right: 10px;
     }
 }

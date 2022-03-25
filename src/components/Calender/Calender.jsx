@@ -1,44 +1,54 @@
 import React, { useState } from 'react'
-import './_CalendarScreen.scss'
+import './_Calendar.scss'
 import Calendar from 'react-calendar';
 import { TimePickerComponent } from '@syncfusion/ej2-react-calendars'
 import 'react-calendar/dist/Calendar.css';
 
 
 
-const CalenderScreen = ({ taskDetails, setTaskDetails }) => {
+const Calender = ({ taskDetails, setTaskDetails, calenderScreenRef }) => {
     const [time, setTime] = useState();
     const [date, setDate] = useState(new Date())
 
     const handleTime = (time) => {
-        setTaskDetails({ ...taskDetails, time: time.value })
         setTime(time.value)
     }
-    console.log(time);
 
     const handleDate = (date) => {
-        setTaskDetails({ ...taskDetails, date })
         setDate(date)
     }
+
+    const handleDateAndTime = () => {
+        setTaskDetails({ ...taskDetails, time, date })
+    }
+
     console.log(taskDetails);
     return (
-        <div className='calendar'>
-            <div>
+        <div className='calendarscreen'
+            ref={calenderScreenRef}
+        >
+            <div className='calendarscreen_timepicker'>
                 <TimePickerComponent
                     placeholder='Pick a time'
                     value={time}
                     onChange={handleTime}
                 />
             </div>
-            <div>
+            <div className='calendarscreen_calendar'>
                 <Calendar
                     minDate={new Date()}
                     value={date}
                     onChange={handleDate}
                 />
             </div>
+            <div className='calendarscreen_actions'>
+                <button className='calendarscreen_actions_successbtn'
+                    onClick={handleDateAndTime}
+                >Set Date and Time</button>
+                <button className='calendarscreen_actions_closebtn'>X</button>
+            </div>
         </div>
     )
 }
 
-export default CalenderScreen
+export default Calender

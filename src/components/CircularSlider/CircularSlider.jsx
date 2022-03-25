@@ -3,22 +3,20 @@ import React, { useState } from 'react'
 import './_CircularSlider.scss'
 import { CircleSlider } from "react-circle-slider";
 
-const CircularSlider = () => {
+const CircularSlider = ({ taskDetails, setTaskDetails }) => {
 
-    const [time, setTime] = useState(0);
-
-
+    const [timer, setTimer] = useState(0);
 
     const handleTimer = (value) => {
-        setTime(value)
-        console.log(value);
+        setTaskDetails({ ...taskDetails, timer: value })
+        setTimer(value)
     }
 
     return (
         <div className='circularslider'>
             <CircleSlider
                 circleColor="#e7eaf0"
-                value={time}
+                value={taskDetails.timer}
                 size={250}
                 knobRadius={12}
                 knobColor="#ff5722"
@@ -29,7 +27,7 @@ const CircularSlider = () => {
                 min={0}
                 max={120}
             />
-            <span className="circle_badge">{time} mins</span>
+            <span className="circle_badge">{timer} mins</span>
         </div>
     )
 }

@@ -1,12 +1,17 @@
 import React, { useState } from 'react'
-import { AddTimeAndDateButton, CircularSlider, MenuButton } from '../../components'
-
 import './_TodoScreen.scss'
 
+import {
+    AddTimeAndDateButton,
+    CircularSlider,
+    MenuButton
+} from '../../components'
 
-const TodoScreen = ({ setToggleCalendar }) => {
 
-    const [taskDetails, setTaskDetails] = useState({ task: '', timer: '', time: '', date: '' })
+
+const TodoScreen = ({ setToggleCalendar, taskDetails, setTaskDetails }) => {
+
+
 
     return (
         <div className='todoscreen'>

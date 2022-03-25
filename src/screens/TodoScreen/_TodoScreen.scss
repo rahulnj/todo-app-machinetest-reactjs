@@ -1,0 +1,33 @@
+.todoscreen {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 500px;
+    max-width: 340px;
+    border: 1px solid red;
+
+    &_header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+
+        h3 {
+            margin-left: 5px;
+        }
+    }
+    &_inputwrapper {
+        width: 280px;
+        input {
+            height: 45px;
+            width: 100%;
+            outline: none;
+            border-radius: 5px;
+            border: 1px solid grey;
+            color: #fdfdfd;
+            font-size: 14px;
+            background-color: #30384b70;
+        }
+    }
+}

@@ -7,11 +7,18 @@ body {
 }
 
 body {
-  background-color: #30384b;
-  color: #eee;
+  background: #eee;
 }
 
 .main {
   display: flex;
   justify-content: center;
+  align-items: center;
+  height: 100vh;
+  position: relative;
 }
+
+$breakpoint-small: 540px;
+$breakpoint-medium: 720px;
+$breakpoint-large: 920px;
+$breakpoint-x-large: 1200px;

@@ -5,8 +5,9 @@
     flex-direction: column;
     width: 500px;
     max-width: 340px;
-    border: 1px solid red;
-
+    padding: 10px 10px 20px 10px;
+    background: #fdfdfd;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
     &_header {
         display: flex;
         align-items: center;
@@ -24,10 +25,10 @@
             width: 100%;
             outline: none;
             border-radius: 5px;
-            border: 1px solid grey;
-            color: #fdfdfd;
+            border: 1px solid #e7eaf0;
+            color: black;
             font-size: 14px;
-            background-color: #30384b70;
+            background-color: #e7eaf0;
         }
     }
 }

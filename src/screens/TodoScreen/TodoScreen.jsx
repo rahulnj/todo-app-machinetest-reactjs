@@ -1,10 +1,13 @@
-import React from 'react'
-import { CircularSlider, MenuButton } from '../../components'
+import React, { useState } from 'react'
+import { AddTimeAndDateButton, CircularSlider, MenuButton } from '../../components'
 
 import './_TodoScreen.scss'
 
 
-const TodoScreen = () => {
+const TodoScreen = ({ setToggleCalendar }) => {
+
+    const [taskDetails, setTaskDetails] = useState({ task: '', timer: '', time: '', date: '' })
+
     return (
         <div className='todoscreen'>
             <div className='todoscreen_header'>
@@ -12,9 +15,17 @@ const TodoScreen = () => {
                 <MenuButton />
             </div>
             <div className='todoscreen_inputwrapper'>
-                <input type="text" placeholder='eg: developer' />
+                <input type="text" placeholder='Type task'
+                    value={taskDetails.task}
+                    onChange={(e) => setTaskDetails({ ...taskDetails, task: e.target.value })} />
             </div>
-            <CircularSlider />
+            <CircularSlider
+                taskDetails={taskDetails}
+                setTaskDetails={setTaskDetails}
+            />
+            <AddTimeAndDateButton
+                setToggleCalendar={setToggleCalendar}
+            />
         </div>
     )
 }

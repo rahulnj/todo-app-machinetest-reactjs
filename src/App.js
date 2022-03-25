@@ -1,10 +1,19 @@
 import TodoScreen from "./screens/TodoScreen/TodoScreen";
-import './base.scss'
+import './_base.scss'
+import { useState } from "react";
+import CalenderScreen from "./screens/CalenderScreen/CalenderScreen";
 
 const App = () => {
+  const [toggleCalendar, setToggleCalendar] = useState(false)
   return (
     <div className="main">
-      <TodoScreen />
+      <TodoScreen
+        setToggleCalendar={setToggleCalendar}
+      />
+      {
+        toggleCalendar && <CalenderScreen />
+      }
+
     </div>
   );
 }

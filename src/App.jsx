@@ -9,7 +9,8 @@ import {
 
 const App = () => {
 
-  const [taskDetails, setTaskDetails] = useState({ task: '', timer: '', time: '', date: '' })
+  const [taskDetails, setTaskDetails] = useState
+    ({ task: '', timer: '', time: '', date: '', isComplete: false, isExeeded: false, isPending: true })
   const [toggleCalendar, setToggleCalendar] = useState(false)
   const [toggleTaskList, setToggleTaskList] = useState(false)
   const [taskError, setTaskError] = useState(false)
@@ -24,21 +25,21 @@ const App = () => {
     TOGGLECOMPONENT = toggleTaskList
   }
 
-  useEffect(() => {
-    const checkIfClickedOutsideCalendar = (e) => {
-      if (TOGGLECOMPONENT && calenderScreenRef.current && !calenderScreenRef.current.contains(e.target)) {
-        if (toggleCalendar) {
-          setToggleCalendar(false)
-        } else if (toggleTaskList) {
-          setToggleTaskList(false)
-        }
-      }
-    }
-    document.addEventListener("mousedown", checkIfClickedOutsideCalendar)
-    return () => {
-      document.removeEventListener("mousedown", checkIfClickedOutsideCalendar)
-    }
-  }, [toggleCalendar, toggleTaskList, TOGGLECOMPONENT])
+  // useEffect(() => {
+  //   const checkIfClickedOutsideCalendar = (e) => {
+  //     if (TOGGLECOMPONENT && calenderScreenRef.current && !calenderScreenRef.current.contains(e.target)) {
+  //       if (toggleCalendar) {
+  //         setToggleCalendar(false)
+  //       } else if (toggleTaskList) {
+  //         setToggleTaskList(false)
+  //       }
+  //     }
+  //   }
+  //   document.addEventListener("mousedown", checkIfClickedOutsideCalendar)
+  //   return () => {
+  //     document.removeEventListener("mousedown", checkIfClickedOutsideCalendar)
+  //   }
+  // }, [toggleCalendar, toggleTaskList, TOGGLECOMPONENT])
 
   return (
     <div className="main">
@@ -57,6 +58,8 @@ const App = () => {
         <Calender
           taskDetails={taskDetails}
           setTaskDetails={setTaskDetails}
+          setToggleTaskList={setToggleTaskList}
+          setToggleCalendar={setToggleCalendar}
           calenderScreenRef={calenderScreenRef}
         />
       }

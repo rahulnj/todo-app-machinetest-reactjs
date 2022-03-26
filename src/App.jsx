@@ -12,8 +12,10 @@ const App = () => {
   const [taskDetails, setTaskDetails] = useState({ task: '', timer: '', time: '', date: '' })
   const [toggleCalendar, setToggleCalendar] = useState(false)
   const [toggleTaskList, setToggleTaskList] = useState(false)
+  const [taskError, setTaskError] = useState(false)
+  const [timerError, setTimerError] = useState(false)
   const calenderScreenRef = useRef()
-  const taskListRef = useRef()
+
 
   let TOGGLECOMPONENT;
   if (toggleCalendar) {
@@ -36,18 +38,22 @@ const App = () => {
     return () => {
       document.removeEventListener("mousedown", checkIfClickedOutsideCalendar)
     }
-  }, [toggleCalendar, toggleTaskList])
+  }, [toggleCalendar, toggleTaskList, TOGGLECOMPONENT])
 
   return (
     <div className="main">
       <TodoScreen
+        taskError={taskError}
+        timerError={timerError}
         taskDetails={taskDetails}
+        setTaskError={setTaskError}
+        setTimerError={setTimerError}
         setTaskDetails={setTaskDetails}
         setToggleCalendar={setToggleCalendar}
         setToggleTaskList={setToggleTaskList}
       />
       {
-        toggleCalendar &&
+        (toggleCalendar && !taskError && !timerError) &&
         <Calender
           taskDetails={taskDetails}
           setTaskDetails={setTaskDetails}
@@ -56,9 +62,7 @@ const App = () => {
       }
       {
         toggleTaskList &&
-        <TaskList
-          taskListRef={taskListRef}
-        />
+        <TaskList />
       }
 
     </div>

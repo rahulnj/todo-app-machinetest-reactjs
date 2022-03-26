@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import './_CircularSlider.scss'
 import { CircleSlider } from "react-circle-slider";
@@ -11,7 +11,6 @@ const CircularSlider = ({ taskDetails, setTaskDetails }) => {
         setTaskDetails({ ...taskDetails, timer: value })
         setTimer(value)
     }
-
     return (
         <div className='circularslider'>
             <CircleSlider

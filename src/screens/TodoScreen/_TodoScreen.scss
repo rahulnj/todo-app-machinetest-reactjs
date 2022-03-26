@@ -19,16 +19,46 @@
         }
     }
     &_inputwrapper {
-        width: 280px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 5px;
+        width: 100%;
         input {
-            height: 45px;
-            width: 100%;
-            outline: none;
-            border-radius: 5px;
+            padding: 10px 16px;
+            font-size: 16px;
+            color: #32383c;
+            background-color: #fff;
             border: 1px solid #e7eaf0;
-            color: black;
-            font-size: 14px;
-            background-color: #e7eaf0;
+            border-radius: 5px;
+            margin-top: 5px;
+            width: 70%;
+            transition: all 0.2s ease;
+        }
+        &_input:focus {
+            outline: none;
+            box-shadow: 0 0 2px 4px #d3ddf1;
+        }
+        &_inputerror:focus {
+            outline: none;
+            box-shadow: 0 0 2px 4px #e629227a;
+        }
+        &_svg {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            transition: all 0.3s ease;
+            svg {
+                width: 21px;
+                color: #d9534f;
+                stroke-width: 2px;
+            }
+            span {
+                font-size: 14px;
+                font-weight: 500;
+                color: #d9534f;
+            }
         }
     }
 }

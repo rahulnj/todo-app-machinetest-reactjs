@@ -4,14 +4,13 @@ import './_Button.scss'
 
 
 const MenuButton = ({ setToggleTaskList, setToggleCalendar }) => {
-    const { taskList, success } = useSelector((state) => state.taskReducer)
+    const { taskList } = useSelector((state) => state.taskReducer)
     const [todaysActivityCount, setTodaysActivityCount] = useState(0)
 
     useEffect(() => {
         setTodaysActivityCount(taskList?.length)
     }, [taskList, todaysActivityCount])
 
-    console.log(todaysActivityCount);
     const handleMenuButton = () => {
         setToggleTaskList(value => !value)
         setToggleCalendar(false)

@@ -1,21 +1,15 @@
 import React from 'react'
 
-const AddTimeAndDateButton = ({ setToggleCalendar, setToggleTaskList, setTaskError, taskDetails, taskInputRef, setTimerError }) => {
+const AddTimeAndDateButton = ({ setToggleCalendar, setToggleTaskList, setTaskError, taskDetails, taskInputRef }) => {
 
     const handleAddDateAndTimeButton = () => {
         if (taskDetails.task === '') {
             setTaskError(true)
-            setTimerError(true)
             taskInputRef.current.focus()
         } else if (taskDetails.task) {
             setTaskError(false)
-            setTimerError(false)
         }
-        if (taskDetails.timer === '') {
-            setTimerError(true)
-        } else if (taskDetails.timer) {
-            setTimerError(false)
-        }
+
         setToggleCalendar(true)
         setToggleTaskList(false)
     }

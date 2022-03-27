@@ -4,24 +4,26 @@ import './_CircularSlider.scss'
 import { CircleSlider } from "react-circle-slider";
 import { useSelector } from 'react-redux';
 
-const CircularSlider = ({ taskDetails, setTaskDetails }) => {
-    const { success } = useSelector((state) => state.taskReducer)
-    const [timer, setTimer] = useState(0);
+const CircularSlider = ({ taskDetails, setTaskDetails, disableDurationSlider }) => {
+    const { taskList } = useSelector((state) => state.taskReducer)
+    const [duration, setDuration] = useState(0);
 
     const handleTimer = (value) => {
-        setTaskDetails({ ...taskDetails, timer: value })
-        setTimer(value)
+        setTaskDetails({ ...taskDetails, duration: value })
+        setDuration(value)
     }
 
+
+
     useEffect(() => {
-        setTimer(0)
-    }, [success])
+        setDuration(0)
+    }, [taskList])
 
     return (
         <div className='circularslider'>
             <CircleSlider
                 circleColor="#e7eaf0"
-                value={taskDetails.timer}
+                value={taskDetails.duration}
                 size={250}
                 knobRadius={12}
                 knobColor="#ff5722"
@@ -31,8 +33,9 @@ const CircularSlider = ({ taskDetails, setTaskDetails }) => {
                 onChange={handleTimer}
                 min={0}
                 max={120}
+                disabled={disableDurationSlider}
             />
-            <span className="circle_badge">{timer} mins</span>
+            <span className="circle_badge">{duration} mins</span>
         </div>
     )
 }

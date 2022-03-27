@@ -4,15 +4,29 @@
 export const addTask = (taskDetails) => {
     let taskList = []
     if (localStorage.getItem("taskList")) {
-        console.log("if");
         taskList = JSON.parse(localStorage.getItem("taskList"))
     }
-    let id = new Date().getTime().toString()
-    localStorage.setItem('taskList', JSON.stringify([...taskList, { ...taskDetails, id }]))
+
+
+
+    let existingTask = taskList?.find((task) => task?.id === taskDetails?.id)
+    if (existingTask) {
+        alert("already")
+        return {
+            type: "ADD_TASK_FAILED"
+        }
+    }
+
+    let orderedTaskList = [...taskList, taskDetails].sort((a, b) => {
+        return parseInt(a?.id) - parseInt(b?.id)
+    })
+
+    console.log(orderedTaskList);
+
+    localStorage.setItem('taskList', JSON.stringify(orderedTaskList))
     return {
         type: "ADD_TASK_SUCCESS",
-        payload: { ...taskDetails, id }
-
+        payload: taskDetails
     }
 }
 
@@ -29,3 +43,5 @@ export const deleteTask = (id) => {
         payload: updatedTaskList
     }
 }
+
+

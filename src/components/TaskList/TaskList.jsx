@@ -43,7 +43,7 @@ const TaskList = () => {
                                             <p> {task?.task}</p>
                                             <div className="detailscontent_time">
                                                 <TimeButton />
-                                                <p>{task?.timer} mins</p>
+                                                <p>{task?.duration} mins</p>
                                             </div>
                                             <TaskActionButtons id={task?.id} />
                                         </div>

@@ -7,7 +7,8 @@ import {
     MenuButton
 } from '../../components'
 import { useSelector } from 'react-redux'
-
+import { useDispatch } from 'react-redux';
+import { addTask } from '../../state/actions/index'
 
 
 const TodoScreen = ({
@@ -17,20 +18,43 @@ const TodoScreen = ({
     setToggleTaskList,
     taskError,
     setTaskError,
-    setTimerError,
-    timerError }) => {
-    const { taskList, success } = useSelector((state) => state.taskReducer)
+    setDurationError,
+    durationError,
+    disableDurationSlider,
+    setShowAddButton,
+    showAddButton,
+    setDisableDurationSlider }) => {
+
+    const { taskList } = useSelector((state) => state.taskReducer)
     const taskInputRef = useRef()
+    const dispatch = useDispatch()
 
     useEffect(() => {
-        setTaskDetails({ task: '', timer: '', time: '', date: '', isComplete: false, isExeeded: false, isPending: true })
-    }, [success])
+        setTaskDetails({ task: '', duration: '', time: '', date: '', isComplete: false, isExeeded: false, isPending: true })
+        setDisableDurationSlider(true)
+    }, [taskList])
 
     useEffect(() => {
         taskInputRef.current.focus()
     }, [])
 
+    useEffect(() => {
+        const { task, duration, time, date } = taskDetails;
+        if (task && duration > 0 && time && date) {
+            setShowAddButton(true)
+        } else {
+            setShowAddButton(false)
+        }
+    }, [taskDetails])
 
+    const addTaskHandler = () => {
+        if (taskDetails.duration !== 0) {
+            dispatch(addTask(taskDetails))
+            setDurationError(false)
+        } else {
+            setDurationError(true)
+        }
+    }
 
     return (
         <div className='todoscreen'>
@@ -49,35 +73,40 @@ const TodoScreen = ({
                     onChange={(e) => setTaskDetails({ ...taskDetails, task: e.target.value })} />
                 {
                     taskError && <div className='todoscreen_inputwrapper_svg'>
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokewidth="2">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
                         <span>Add a Task</span>
                     </div>
                 }
             </div>
-            <CircularSlider
-                taskDetails={taskDetails}
-                setTimerError={setTimerError}
-                setTaskDetails={setTaskDetails}
-            />
-            {
-                timerError && <div className='todoscreen_inputwrapper_svg'>
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokewidth="2">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    <span>Add Time</span>
-                </div>
-            }
             <AddTimeAndDateButton
                 setToggleCalendar={setToggleCalendar}
                 setToggleTaskList={setToggleTaskList}
                 taskDetails={taskDetails}
                 setTaskError={setTaskError}
-                setTimerError={setTimerError}
                 taskInputRef={taskInputRef}
             />
-        </div>
+            <CircularSlider
+                taskDetails={taskDetails}
+                disableDurationSlider={disableDurationSlider}
+                setTaskDetails={setTaskDetails}
+            />
+            {
+                durationError && <div className='todoscreen_inputwrapper_svg'>
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokewidth="2">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span>Add Duration</span>
+                </div>
+            }
+
+            {showAddButton &&
+                <button className='calendarscreen_actions_successbtn'
+                    onClick={addTaskHandler}
+                >Add Task</button>
+            }
+        </div >
     )
 }
 

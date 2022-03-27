@@ -9,8 +9,8 @@ import { useSelector } from 'react-redux'
 
 const TaskList = () => {
 
-    const taskList = useSelector((state) => state.taskReducer.taskList)
-    console.log(taskList);
+    const { taskList, success } = useSelector((state) => state.taskReducer)
+    console.log({ taskList });
     return (
         <div className='tasklist'>
             <div className='tasklist_wrapper'>
@@ -20,32 +20,32 @@ const TaskList = () => {
                     </div>
                     {taskList?.map((task) => (
                         <div className='tasklist_todaysactivity_single'
-                            key={task?.data?.id}>
+                            key={task?.id}>
                             <ul>
                                 <li>
                                     <details className='userinfo_details'>
                                         <summary className='userinfo_summary'>
                                             {
-                                                task?.data?.isCompleted && <div className='complete' />
+                                                task?.isCompleted && <div className='complete' />
                                             }
                                             {
-                                                task?.data?.isExeeded && <div className='exeeded' />
+                                                task?.isExeeded && <div className='exeeded' />
                                             }
                                             {
-                                                task?.data?.isPending && <div className='pending' />
+                                                task?.isPending && <div className='pending' />
                                             }
-                                            {task?.data?.task}
+                                            {task.task}
                                             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 arrow" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                                                 <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
                                             </svg>
                                         </summary>
                                         <div className="detailscontent">
-                                            <p> {task?.data?.task}</p>
+                                            <p> {task?.task}</p>
                                             <div className="detailscontent_time">
                                                 <TimeButton />
-                                                <p>{task?.data?.timer} mins</p>
+                                                <p>{task?.timer} mins</p>
                                             </div>
-                                            <TaskActionButtons id={task?.data?.id} />
+                                            <TaskActionButtons id={task?.id} />
                                         </div>
                                     </details>
                                 </li>

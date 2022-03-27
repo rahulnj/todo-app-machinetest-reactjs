@@ -6,6 +6,7 @@ import {
     CircularSlider,
     MenuButton
 } from '../../components'
+import { useSelector } from 'react-redux'
 
 
 
@@ -18,8 +19,13 @@ const TodoScreen = ({
     setTaskError,
     setTimerError,
     timerError }) => {
-
+    const { taskList, success } = useSelector((state) => state.taskReducer)
     const taskInputRef = useRef()
+
+    useEffect(() => {
+        setTaskDetails({ task: '', timer: '', time: '', date: '', isComplete: false, isExeeded: false, isPending: true })
+    }, [success])
+
     useEffect(() => {
         taskInputRef.current.focus()
     }, [])

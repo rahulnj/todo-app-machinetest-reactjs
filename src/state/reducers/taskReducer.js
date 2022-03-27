@@ -1,30 +1,35 @@
 const initialState = {
-    taskList: []
+    taskList: localStorage.getItem("taskList") ? JSON.parse(localStorage.getItem("taskList")) : [],
+    success: false
 }
 
 
 export const taskReducer = (state = initialState, action) => {
     switch (action.type) {
-        case "ADD_TASK":
+        case "ADD_TASK_SUCCESS":
+
             return {
                 ...state,
                 taskList: [
                     ...state.taskList,
-                    {
-                        data: action.payload.data
-                    }
-                ]
+                    action.payload
+                ],
+                success: true
             }
+
         case "DELETE_TASK":
-            console.log(state.taskList);
-            const newTaskList = state.taskList.filter((task) => (task.data.id != action.id))
+
             return {
                 ...state,
-                taskList: newTaskList
+                taskList: action.payload,
+                success: true
             }
+
         default:
             return state;
     }
 }
+
+
 
 

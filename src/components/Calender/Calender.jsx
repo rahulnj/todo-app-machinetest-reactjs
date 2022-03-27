@@ -6,7 +6,7 @@ import 'react-calendar/dist/Calendar.css';
 import { useDispatch } from 'react-redux';
 import { addTask } from '../../state/actions/index'
 
-
+// console.log(JSON.parse(localStorage.getItem("taskList")));
 const Calender = ({ taskDetails, setTaskDetails, calenderScreenRef, setToggleCalendar, setToggleTaskList }) => {
     const dispatch = useDispatch()
     const [time, setTime] = useState();
@@ -14,7 +14,7 @@ const Calender = ({ taskDetails, setTaskDetails, calenderScreenRef, setToggleCal
 
     const handleTime = (time) => {
         setTime(time.value)
-        setTaskDetails({ ...taskDetails, time })
+        setTaskDetails({ ...taskDetails, time: time.value })
     }
 
     const handleDate = (date) => {

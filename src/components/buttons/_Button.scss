@@ -13,6 +13,14 @@
     .clock {
         width: 20px;
     }
+    .back {
+        width: 28px;
+        opacity: 0.5;
+    }
+    .back:hover {
+        transition: transform 0.5s ease;
+        opacity: 1;
+    }
 
     &_badge {
         position: absolute;
@@ -48,66 +56,5 @@
             border: 1px;
             margin-right: 5px;
         }
-    }
-}
-.taskaction {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-
-    &_finished {
-        background-color: #e7eaf0;
-        border-radius: 4px;
-        border: 0;
-        box-sizing: border-box;
-        color: #4bb543;
-        cursor: pointer;
-        font-size: 14px;
-        font-weight: 500;
-        padding: 5px 10px;
-        user-select: none;
-        transition: all 0.2s cubic-bezier(0.22, 0.61, 0.36, 1);
-    }
-    &_finished:hover {
-        box-shadow: 0 0 2px 4px #d3ddf19f;
-        transform: translateY(-2px);
-    }
-    &_edit {
-        background-color: #e7eaf0;
-        border-radius: 4px;
-        border: 0;
-        box-sizing: border-box;
-        color: #ffbb33;
-        cursor: pointer;
-        font-size: 14px;
-        font-weight: 500;
-        padding: 5px 10px;
-        user-select: none;
-        transition: all 0.2s cubic-bezier(0.22, 0.61, 0.36, 1);
-    }
-    &_edit:hover {
-        box-shadow: 0 0 2px 4px #d3ddf19f;
-        transform: translateY(-2px);
-    }
-    &_delete {
-        background-color: #e7eaf0;
-        border-radius: 4px;
-        border: 0;
-        box-sizing: border-box;
-        color: #d9534f;
-        cursor: pointer;
-        font-size: 14px;
-        font-weight: 500;
-        padding: 5px 10px;
-        user-select: none;
-        transition: all 0.2s cubic-bezier(0.22, 0.61, 0.36, 1);
-    }
-    &_delete:hover {
-        box-shadow: 0 0 2px 4px #d3ddf19f;
-        transform: translateY(-2px);
-    }
-    &_svg {
-        width: 21px;
-        border: 1px;
     }
 }

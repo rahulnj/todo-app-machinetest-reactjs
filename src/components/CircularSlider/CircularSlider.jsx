@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 import './_CircularSlider.scss'
 import { CircleSlider } from "react-circle-slider";
@@ -7,7 +7,8 @@ import { useSelector } from 'react-redux';
 const CircularSlider = ({ taskDetails, setTaskDetails, disableDurationSlider }) => {
     const { taskList } = useSelector((state) => state.taskReducer)
     const [duration, setDuration] = useState(0);
-
+    const [maxDuration, setMaxDuration] = useState(120);
+    const initialUpdate = useRef(true)
     const handleTimer = (value) => {
         setTaskDetails({ ...taskDetails, duration: value })
         setDuration(value)
@@ -18,6 +19,27 @@ const CircularSlider = ({ taskDetails, setTaskDetails, disableDurationSlider }) 
     useEffect(() => {
         setDuration(0)
     }, [taskList])
+
+
+    useEffect(() => {
+        if (initialUpdate.current) {
+            initialUpdate.current = false;
+            return;
+        }
+        alert("dklfjkl")
+
+        let subsequentTask = taskList?.find((task) => task?.id > taskDetails?.id)
+        if (subsequentTask) {
+            let timeGap = parseInt(subsequentTask?.id) - parseInt(taskDetails?.id)
+            if (timeGap < 7200000) {
+                setMaxDuration((timeGap / 1000) / 60)
+            } else if (timeGap > 7200000) {
+                setMaxDuration(120)
+            }
+        }
+    }, [disableDurationSlider, maxDuration])
+
+
 
     return (
         <div className='circularslider'>
@@ -32,7 +54,7 @@ const CircularSlider = ({ taskDetails, setTaskDetails, disableDurationSlider }) 
                 progressColor="#ff5722"
                 onChange={handleTimer}
                 min={0}
-                max={120}
+                max={maxDuration}
                 disabled={disableDurationSlider}
             />
             <span className="circle_badge">{duration} mins</span>

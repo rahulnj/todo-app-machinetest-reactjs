@@ -17,6 +17,14 @@ export const taskReducer = (state = initialState, action) => {
                 success: true
             }
 
+        case "COMPLETE_TASK":
+
+            return {
+                ...state,
+                taskList: action.payload,
+                success: true
+            }
+
         case "DELETE_TASK":
 
             return {
@@ -24,6 +32,15 @@ export const taskReducer = (state = initialState, action) => {
                 taskList: action.payload,
                 success: true
             }
+
+        case "UPDATE_TASK":
+
+            return {
+                ...state,
+                taskList: action.payload,
+                success: true
+            }
+
 
         default:
             return state;

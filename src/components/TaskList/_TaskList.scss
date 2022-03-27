@@ -13,7 +13,11 @@
     padding: 10px 10px 20px 10px;
     background: #fdfdfd;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-
+    &_header {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+    }
     &_wrapper {
         overflow-y: auto;
         padding: 5px;
@@ -105,6 +109,72 @@
     background: #d9534f;
     bottom: 0;
     right: 0;
+}
+
+.taskaction {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+
+    &_finished {
+        background-color: #e7eaf0;
+        border-radius: 4px;
+        border: 0;
+        box-sizing: border-box;
+        color: #4bb543;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 500;
+        padding: 5px 10px;
+        user-select: none;
+        transition: all 0.2s cubic-bezier(0.22, 0.61, 0.36, 1);
+    }
+    &_finished:hover {
+        box-shadow: 0 0 2px 4px #d3ddf19f;
+        transform: translateY(-2px);
+    }
+    &_edit {
+        background-color: #e7eaf0;
+        border-radius: 4px;
+        border: 0;
+        box-sizing: border-box;
+        color: #ffbb33;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 500;
+        padding: 5px 10px;
+        user-select: none;
+        transition: all 0.2s cubic-bezier(0.22, 0.61, 0.36, 1);
+    }
+    &_edit:hover {
+        box-shadow: 0 0 2px 4px #d3ddf19f;
+        transform: translateY(-2px);
+    }
+    &_delete {
+        background-color: #e7eaf0;
+        border-radius: 4px;
+        border: 0;
+        box-sizing: border-box;
+        color: #d9534f;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 500;
+        padding: 5px 10px;
+        user-select: none;
+        transition: all 0.2s cubic-bezier(0.22, 0.61, 0.36, 1);
+    }
+    &_delete:hover {
+        box-shadow: 0 0 2px 4px #d3ddf19f;
+        transform: translateY(-2px);
+    }
+    &_svg {
+        width: 21px;
+        border: 1px;
+    }
+    span {
+        color: #d9534f;
+    }
 }
 
 @media only screen and (max-width: $breakpoint-x-large) {

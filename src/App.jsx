@@ -1,6 +1,6 @@
 import TodoScreen from "./screens/TodoScreen/TodoScreen";
 import './_base.scss'
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import {
   Calender,
   TaskList
@@ -18,31 +18,7 @@ const App = () => {
   const [timeAndDateError, setTimeAndDateError] = useState(false)
   const [disableDurationSlider, setDisableDurationSlider] = useState(true)
   const [showAddButton, setShowAddButton] = useState(false)
-  const calenderScreenRef = useRef()
 
-
-  // let TOGGLECOMPONENT;
-  // if (toggleCalendar) {
-  //   TOGGLECOMPONENT = toggleCalendar
-  // } else if (toggleTaskList) {
-  //   TOGGLECOMPONENT = toggleTaskList
-  // }
-
-  // useEffect(() => {
-  //   const checkIfClickedOutsideCalendar = (e) => {
-  //     if (TOGGLECOMPONENT && calenderScreenRef.current && !calenderScreenRef.current.contains(e.target)) {
-  //       if (toggleCalendar) {
-  //         setToggleCalendar(false)
-  //       } else if (toggleTaskList) {
-  //         setToggleTaskList(false)
-  //       }
-  //     }
-  //   }
-  //   document.addEventListener("mousedown", checkIfClickedOutsideCalendar)
-  //   return () => {
-  //     document.removeEventListener("mousedown", checkIfClickedOutsideCalendar)
-  //   }
-  // }, [toggleCalendar, toggleTaskList, TOGGLECOMPONENT])
 
   return (
     <div className="main">
@@ -68,7 +44,6 @@ const App = () => {
           setTaskDetails={setTaskDetails}
           setToggleTaskList={setToggleTaskList}
           setToggleCalendar={setToggleCalendar}
-          calenderScreenRef={calenderScreenRef}
           timeAndDateError={timeAndDateError}
           setTimeAndDateError={setTimeAndDateError}
           setDisableDurationSlider={setDisableDurationSlider}
@@ -76,7 +51,10 @@ const App = () => {
       }
       {
         toggleTaskList &&
-        <TaskList />
+        <TaskList
+          setToggleCalendar={setToggleCalendar}
+          setToggleTaskList={setToggleTaskList}
+        />
       }
 
     </div>

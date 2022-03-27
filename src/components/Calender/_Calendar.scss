@@ -14,7 +14,12 @@
     padding: 10px 10px 20px 10px;
     background: #fdfdfd;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-
+    &_header {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        width: 100%;
+    }
     &_calendar {
         margin-bottom: 5px;
     }

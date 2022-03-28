@@ -1,6 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef } from 'react'
 import './_TodoScreen.scss'
-
 import {
     AddTimeAndDateButton,
     CircularSlider,
@@ -10,7 +9,8 @@ import Moment from 'react-moment'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux';
 import { addTask, updateTask } from '../../state/actions/index'
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const TodoScreen = ({
     setToggleCalendar,
@@ -23,15 +23,13 @@ const TodoScreen = ({
     durationError,
     disableDurationSlider,
     setShowAddButton,
-    showAddButton,
     setDisableDurationSlider }) => {
 
     const { taskList } = useSelector((state) => state.taskReducer)
+
     const taskInputRef = useRef()
+
     const dispatch = useDispatch()
-
-
-
 
     useEffect(() => {
         setTaskDetails({ task: '', duration: 0, time: '', date: '', isComplete: false, isExeeded: false, isPending: true })
@@ -50,12 +48,21 @@ const TodoScreen = ({
         } else {
             setShowAddButton(false)
         }
-    }, [taskDetails])
+    }, [taskDetails, setShowAddButton])
 
     const addTaskHandler = () => {
         if (taskDetails.duration !== 0) {
             dispatch(addTask(taskDetails))
             setDurationError(false)
+            toast.success('Task Added', {
+                position: "top-center",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
         } else {
             setDurationError(true)
         }
@@ -63,6 +70,7 @@ const TodoScreen = ({
 
     return (
         <div className='todoscreen'>
+            <ToastContainer />
             <div className='todoscreen_header'>
                 <h3>Todo</h3>
                 <MenuButton
@@ -103,14 +111,12 @@ const TodoScreen = ({
             {
                 durationError &&
                 <div className='todoscreen_inputwrapper_svg'>
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokewidth="2">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                     <span>Add Duration and Time</span>
                 </div>
             }
-
-
             <button className='calendarscreen_actions_successbtn'
                 onClick={addTaskHandler}
             >Add Task</button>

@@ -3,11 +3,9 @@ const initialState = {
     success: false
 }
 
-
 export const taskReducer = (state = initialState, action) => {
     switch (action.type) {
         case "ADD_TASK_SUCCESS":
-
             return {
                 ...state,
                 taskList: [
@@ -18,7 +16,6 @@ export const taskReducer = (state = initialState, action) => {
             }
 
         case "COMPLETE_TASK":
-
             return {
                 ...state,
                 taskList: action.payload,
@@ -26,7 +23,6 @@ export const taskReducer = (state = initialState, action) => {
             }
 
         case "DELETE_TASK":
-
             return {
                 ...state,
                 taskList: action.payload,
@@ -34,14 +30,11 @@ export const taskReducer = (state = initialState, action) => {
             }
 
         case "UPDATE_TASK":
-
             return {
                 ...state,
                 taskList: action.payload,
                 success: true
             }
-
-
         default:
             return state;
     }

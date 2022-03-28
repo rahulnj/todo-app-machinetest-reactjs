@@ -21,6 +21,11 @@ body {
   width: 0px;
 }
 
+@mixin center {
+  display: flex;
+  align-items: center;
+}
+
 /* ==========================================================================
                               display breakpoints
 ========================================================================== */
@@ -29,3 +34,13 @@ $breakpoint-small: 540px;
 $breakpoint-medium: 720px;
 $breakpoint-large: 920px;
 $breakpoint-x-large: 1200px;
+
+/* ==========================================================================
+                               colors
+========================================================================== */
+$main-color: #e7eaf0;
+$background-color: #fdfdfd;
+
+$success: #4bb543;
+$danger: #d9534f;
+$warning: #ffbb33;

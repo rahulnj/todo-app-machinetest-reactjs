@@ -11,11 +11,10 @@
     height: 450px;
     max-width: 340px;
     padding: 10px 10px 20px 10px;
-    background: #fdfdfd;
+    background: $background-color;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
     &_header {
-        display: flex;
-        align-items: center;
+        @include center;
         justify-content: flex-start;
     }
     &_wrapper {
@@ -23,8 +22,7 @@
         padding: 5px;
         &_todaysactivity {
             &_single {
-                display: flex;
-                align-items: center;
+                @include center;
                 height: 60px;
             }
         }
@@ -44,8 +42,7 @@
                 list-style: none;
                 font-size: 0.95rem;
                 margin: 15px 0;
-                display: flex;
-                align-items: center;
+                @include center;
             }
         }
         details {
@@ -60,14 +57,12 @@
             flex-direction: column;
             user-select: none;
             &_time {
-                display: flex;
-                align-items: center;
+                @include center;
             }
         }
         summary {
             list-style: none;
-            display: flex;
-            align-items: center;
+            @include center;
             justify-content: space-between;
             cursor: pointer;
             svg {
@@ -97,7 +92,7 @@
     height: 0.4rem;
     border-radius: 50%;
     border: 3px solid rgb(255, 255, 255);
-    background: #ffbb33;
+    background: $warning;
     bottom: 0;
     right: 0;
 }
@@ -106,7 +101,7 @@
     height: 0.4rem;
     border-radius: 50%;
     border: 3px solid rgb(255, 255, 255);
-    background: #d9534f;
+    background: $danger;
     bottom: 0;
     right: 0;
 }
@@ -118,7 +113,7 @@
     justify-content: center;
 
     &_finished {
-        background-color: #e7eaf0;
+        background-color: $main-color;
         border-radius: 4px;
         border: 0;
         box-sizing: border-box;
@@ -134,25 +129,8 @@
         box-shadow: 0 0 2px 4px #d3ddf19f;
         transform: translateY(-2px);
     }
-    &_edit {
-        background-color: #e7eaf0;
-        border-radius: 4px;
-        border: 0;
-        box-sizing: border-box;
-        color: #ffbb33;
-        cursor: pointer;
-        font-size: 14px;
-        font-weight: 500;
-        padding: 5px 10px;
-        user-select: none;
-        transition: all 0.2s cubic-bezier(0.22, 0.61, 0.36, 1);
-    }
-    &_edit:hover {
-        box-shadow: 0 0 2px 4px #d3ddf19f;
-        transform: translateY(-2px);
-    }
     &_delete {
-        background-color: #e7eaf0;
+        background-color: $main-color;
         border-radius: 4px;
         border: 0;
         box-sizing: border-box;
@@ -174,6 +152,7 @@
     }
     span {
         color: #d9534f;
+        text-align: center;
     }
 }
 

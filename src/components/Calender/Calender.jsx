@@ -1,23 +1,34 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import './_Calendar.scss'
 import Calendar from 'react-calendar';
 import { TimePickerComponent } from '@syncfusion/ej2-react-calendars'
 import 'react-calendar/dist/Calendar.css';
 import { useSelector } from 'react-redux';
 import BackButton from '../buttons/BackButton';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
+const Calender = ({
+    taskDetails,
+    setTaskDetails,
+    timeAndDateError,
+    setToggleCalendar,
+    setTimeAndDateError,
+    setDisableDurationSlider,
+}) => {
 
-const Calender = ({ taskDetails, setTaskDetails, setToggleCalendar, setDisableDurationSlider, setTimeAndDateError, timeAndDateError }) => {
+    let id;
+
     const { taskList } = useSelector((state) => state.taskReducer)
+
     const [time, setTime] = useState();
     const [date, setDate] = useState(new Date())
 
+    const initialUpdate = useRef(true)
 
     const handleDate = (selectedDate) => {
         setDate(selectedDate)
     }
-
-    let id;
 
     const handleTime = (time) => {
         id = new Date(date.toString().slice(0, 15) + ' ' + time.value.toString().slice(16)).getTime().toString()
@@ -29,10 +40,27 @@ const Calender = ({ taskDetails, setTaskDetails, setToggleCalendar, setDisableDu
         if (taskDetails.time === '' && taskDetails.date === '') {
             setTimeAndDateError(true)
         } else if (taskList?.some((task) => task?.id === taskDetails?.id)) {
-            alert("already exists")
+            toast.warn("Already a task exists at this time", {
+                position: "top-center",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+            setTime('')
             setTaskDetails({ ...taskDetails, time: '', date: '' })
         } else if (parseInt(new Date().getTime()) > parseInt(taskDetails?.id)) {
-            alert("less than")
+            toast.warn("Can't add !!! Invalid Time Selected", {
+                position: "top-center",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
             setTaskDetails({ ...taskDetails, time: '', date: '' })
         } else if (taskDetails.time && taskDetails.date) {
             setTimeAndDateError(false)
@@ -41,18 +69,33 @@ const Calender = ({ taskDetails, setTaskDetails, setToggleCalendar, setDisableDu
         }
     }
 
-    let precedentTask = taskList?.reverse()?.find((task) => task?.id < taskDetails?.id)
-    if (precedentTask) {
-        let completionTimeOfPreviousTask = parseInt(precedentTask?.id) + parseInt((precedentTask?.duration * 1000) * 60)
-        if (completionTimeOfPreviousTask > taskDetails?.id) {
-            alert("can't add")
-            // setTaskDetails({ ...taskDetails, time: '', date: '' })
+    useEffect(() => {
+        if (initialUpdate.current) {
+            initialUpdate.current = false;
+            let precedentTask = taskList?.reverse()?.find((task) => task?.id < taskDetails?.id)
+            if (precedentTask) {
+                let completionTimeOfPreviousTask = parseInt(precedentTask?.id) + parseInt((precedentTask?.duration * 1000) * 60)
+                if (completionTimeOfPreviousTask > taskDetails?.id) {
+                    toast.warn(`Task ${precedentTask?.task} has scheduled at this time`, {
+                        position: "top-center",
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                    });
+                    setTime('')
+                }
+            } else {
+                initialUpdate.current = true;
+            }
         }
-    }
-
+    })
 
     return (
         <div className='calendarscreen'>
+            <ToastContainer />
             <div className='calendarscreen_header'>
                 <BackButton
                     setToggleCalendar={setToggleCalendar}
@@ -76,7 +119,7 @@ const Calender = ({ taskDetails, setTaskDetails, setToggleCalendar, setDisableDu
                 <button className='calendarscreen_actions_successbtn'
                     onClick={addTimeAndDateHandler}
                 >Set Date and Time</button>
-                <button className='calendarscreen_actions_closebtn'>X</button>
+
             </div>
             {
                 timeAndDateError && <div className='todoscreen_inputwrapper_svg'>

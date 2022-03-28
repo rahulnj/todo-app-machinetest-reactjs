@@ -1,6 +1,3 @@
-
-
-
 export const addTask = (taskDetails) => {
     let taskList = []
     if (localStorage.getItem("taskList")) {

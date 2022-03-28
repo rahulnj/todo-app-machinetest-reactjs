@@ -1,6 +1,11 @@
-import React from 'react'
 
-const AddTimeAndDateButton = ({ setToggleCalendar, setToggleTaskList, setTaskError, taskDetails, taskInputRef }) => {
+const AddTimeAndDateButton = ({
+    setToggleCalendar,
+    setToggleTaskList,
+    setTaskError,
+    taskDetails,
+    taskInputRef
+}) => {
 
     const handleAddDateAndTimeButton = () => {
         if (taskDetails.task === '') {

@@ -3,46 +3,71 @@ import React, { useEffect, useRef, useState } from 'react'
 import './_CircularSlider.scss'
 import { CircleSlider } from "react-circle-slider";
 import { useSelector } from 'react-redux';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { MAX_DURATION_MILLISECONDS, MAX_DURATION_SECONDS } from '../../MinuteConversion';
 
-const CircularSlider = ({ taskDetails, setTaskDetails, disableDurationSlider }) => {
+const CircularSlider = ({
+    taskDetails,
+    setTaskDetails,
+    disableDurationSlider
+}) => {
+
     const { taskList } = useSelector((state) => state.taskReducer)
+
     const [duration, setDuration] = useState(0);
-    const [maxDuration, setMaxDuration] = useState(120);
+    const [maxDuration, setMaxDuration] = useState(MAX_DURATION_SECONDS);
+
     const initialUpdate = useRef(true)
-    const handleTimer = (value) => {
-        setTaskDetails({ ...taskDetails, duration: value })
-        setDuration(value)
-    }
-
-
+    const initialCheck = useRef(true)
 
     useEffect(() => {
         setDuration(0)
     }, [taskList])
-
 
     useEffect(() => {
         if (initialUpdate.current) {
             initialUpdate.current = false;
             return;
         }
-        alert("dklfjkl")
-
         let subsequentTask = taskList?.find((task) => task?.id > taskDetails?.id)
         if (subsequentTask) {
             let timeGap = parseInt(subsequentTask?.id) - parseInt(taskDetails?.id)
-            if (timeGap < 7200000) {
+            if (timeGap < MAX_DURATION_MILLISECONDS) {
                 setMaxDuration((timeGap / 1000) / 60)
-            } else if (timeGap > 7200000) {
-                setMaxDuration(120)
+            } else if (timeGap > MAX_DURATION_MILLISECONDS) {
+                setMaxDuration(MAX_DURATION_SECONDS)
             }
         }
-    }, [disableDurationSlider, maxDuration])
+    }, [disableDurationSlider])
 
-
+    const handleTimer = (value) => {
+        if (initialCheck.current) {
+            toast.warn(`You have overlapping schedules !!! Max duration for this task is ${maxDuration - 1} mins`, {
+                position: "top-center",
+                autoClose: 4000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+            if (value > maxDuration) {
+                setDuration(value)
+            } else {
+                setDuration(value)
+                setTaskDetails({ ...taskDetails, duration: value })
+            }
+            initialCheck.current = false
+        } else if (!initialCheck.current && value < maxDuration) {
+            setDuration(value)
+            setTaskDetails({ ...taskDetails, duration: value })
+        }
+    }
 
     return (
         <div className='circularslider'>
+            <ToastContainer />
             <CircleSlider
                 circleColor="#e7eaf0"
                 value={taskDetails.duration}

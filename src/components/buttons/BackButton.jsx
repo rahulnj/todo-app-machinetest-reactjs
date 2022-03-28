@@ -1,6 +1,9 @@
-import React from 'react'
 
-const BackButton = ({ setToggleCalendar, setToggleTaskList }) => {
+const BackButton = ({
+    setToggleCalendar,
+    setToggleTaskList
+}) => {
+
     const handleBackButton = () => {
         setToggleCalendar(false)
         setToggleTaskList(false)

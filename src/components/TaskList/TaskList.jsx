@@ -7,9 +7,13 @@ import {
 import { useDispatch, useSelector } from 'react-redux'
 import BackButton from '../buttons/BackButton'
 import { deleteTask, completeTask } from '../../state/actions/index'
+
 const TaskList = ({ setToggleTaskList, setToggleCalendar }) => {
-    const dispatch = useDispatch()
+
     const { taskList } = useSelector((state) => state.taskReducer)
+
+    const dispatch = useDispatch()
+
     return (
         <div className='tasklist'>
             <div className='tasklist_header'>
@@ -56,19 +60,19 @@ const TaskList = ({ setToggleTaskList, setToggleCalendar }) => {
                                                         <p>{task?.duration} mins</p>
                                                     </div>
                                                     <div className='taskaction'>
-                                                        <button className='taskaction_finished'
-                                                            onClick={() => dispatch(completeTask(task?.id))}>
-                                                            {(!task?.isComplete) ?
-                                                                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 taskaction_svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="3">
-                                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                                                                </svg> :
-                                                                'Task Completed'
-                                                            }
-                                                            {
-                                                                (task?.isExeeded && !task?.isComplete) && <span>Task Expired</span>
-                                                            }
-                                                        </button>
-
+                                                        {(task?.isExeeded && !task?.isComplete) ?
+                                                            <span>Task Expired</span>
+                                                            :
+                                                            <button className='taskaction_finished'
+                                                                onClick={() => dispatch(completeTask(task?.id))}>
+                                                                {(!task?.isComplete && !task?.isExeeded) ?
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 taskaction_svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="3">
+                                                                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                                                                    </svg> :
+                                                                    'Task Completed'
+                                                                }
+                                                            </button>
+                                                        }
                                                         <button className='taskaction_delete'
                                                             onClick={() => dispatch(deleteTask(task?.id))}>
                                                             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 taskaction_svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">

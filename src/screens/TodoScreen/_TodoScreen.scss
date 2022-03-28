@@ -1,16 +1,15 @@
+@import "../../_base.scss";
 .todoscreen {
-    display: flex;
-    align-items: center;
+    @include center;
     justify-content: center;
     flex-direction: column;
     width: 500px;
     max-width: 340px;
     padding: 10px 10px 20px 10px;
-    background: #fdfdfd;
+    background: $background-color;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
     &_header {
-        display: flex;
-        align-items: center;
+        @include center;
         justify-content: space-between;
         width: 100%;
 
@@ -19,10 +18,9 @@
         }
     }
     &_inputwrapper {
-        display: flex;
+        @include center;
         flex-direction: column;
         justify-content: center;
-        align-items: center;
         gap: 5px;
         width: 100%;
         input {
@@ -30,7 +28,7 @@
             font-size: 16px;
             color: #32383c;
             background-color: #fff;
-            border: 1px solid #e7eaf0;
+            border: 1px solid $main-color;
             border-radius: 5px;
             margin-top: 5px;
             width: 70%;
@@ -45,20 +43,19 @@
             box-shadow: 0 0 2px 4px #e629227a;
         }
         &_svg {
-            display: flex;
-            align-items: center;
+            @include center;
             justify-content: flex-start;
             margin-bottom: 5px;
             transition: all 0.3s ease;
             svg {
                 width: 21px;
-                color: #d9534f;
+                color: $danger;
                 stroke-width: 2px;
             }
             span {
                 font-size: 14px;
                 font-weight: 500;
-                color: #d9534f;
+                color: $danger;
             }
         }
     }

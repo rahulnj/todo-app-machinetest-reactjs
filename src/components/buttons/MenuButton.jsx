@@ -3,7 +3,11 @@ import { useSelector } from 'react-redux'
 import './_Button.scss'
 
 
-const MenuButton = ({ setToggleTaskList, setToggleCalendar }) => {
+const MenuButton = ({
+    setToggleTaskList,
+    setToggleCalendar
+}) => {
+
     const { taskList } = useSelector((state) => state.taskReducer)
     const [todaysActivityCount, setTodaysActivityCount] = useState(0)
 

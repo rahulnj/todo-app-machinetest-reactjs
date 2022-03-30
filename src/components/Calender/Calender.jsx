@@ -69,29 +69,29 @@ const Calender = ({
         }
     }
 
-    useEffect(() => {
-        if (initialUpdate.current) {
-            initialUpdate.current = false;
-            let precedentTask = taskList?.reverse()?.find((task) => task?.id < taskDetails?.id)
-            if (precedentTask) {
-                let completionTimeOfPreviousTask = parseInt(precedentTask?.id) + parseInt((precedentTask?.duration * 1000) * 60)
-                if (completionTimeOfPreviousTask > taskDetails?.id) {
-                    toast.warn(`Task ${precedentTask?.task} has scheduled at this time`, {
-                        position: "top-center",
-                        autoClose: 3000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                    });
-                    setTime('')
-                }
-            } else {
-                initialUpdate.current = true;
+
+    if (initialUpdate.current) {
+        initialUpdate.current = false;
+        let precedentTask = taskList?.reverse()?.find((task) => task?.id < taskDetails?.id)
+        if (precedentTask) {
+            let completionTimeOfPreviousTask = parseInt(precedentTask?.id) + parseInt((precedentTask?.duration * 1000) * 60)
+            if (completionTimeOfPreviousTask > taskDetails?.id) {
+                toast.warn(`Task ${precedentTask?.task} has scheduled at this time`, {
+                    position: "top-center",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+                setTime('')
             }
+        } else {
+            initialUpdate.current = true;
         }
-    })
+    }
+
 
     return (
         <div className='calendarscreen'>

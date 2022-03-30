@@ -10,7 +10,8 @@ import { MAX_DURATION_MILLISECONDS, MAX_DURATION_SECONDS } from '../../MinuteCon
 const CircularSlider = ({
     taskDetails,
     setTaskDetails,
-    disableDurationSlider
+    disableDurationSlider,
+    setDisableDurationSlider
 }) => {
 
     const { taskList } = useSelector((state) => state.taskReducer)
@@ -25,12 +26,14 @@ const CircularSlider = ({
         setDuration(0)
     }, [taskList])
 
+    let subsequentTask;
+
     useEffect(() => {
         if (initialUpdate.current) {
             initialUpdate.current = false;
             return;
         }
-        let subsequentTask = taskList?.find((task) => task?.id > taskDetails?.id)
+        subsequentTask = taskList?.find((task) => task?.id > taskDetails?.id)
         if (subsequentTask) {
             let timeGap = parseInt(subsequentTask?.id) - parseInt(taskDetails?.id)
             if (timeGap < MAX_DURATION_MILLISECONDS) {
@@ -42,8 +45,12 @@ const CircularSlider = ({
     }, [disableDurationSlider])
 
     const handleTimer = (value) => {
-        if (initialCheck.current) {
-            toast.warn(`You have overlapping schedules !!! Max duration for this task is ${maxDuration - 1} mins`, {
+        if (value < maxDuration) {
+            setDuration(value)
+            setTaskDetails({ ...taskDetails, duration: value })
+        } else if (initialCheck.current && value > maxDuration) {
+            initialCheck.current = false
+            toast.warn(`Max duration for this task is ${maxDuration - 1} mins`, {
                 position: "top-center",
                 autoClose: 4000,
                 hideProgressBar: false,
@@ -52,16 +59,8 @@ const CircularSlider = ({
                 draggable: true,
                 progress: undefined,
             });
-            if (value > maxDuration) {
-                setDuration(value)
-            } else {
-                setDuration(value)
-                setTaskDetails({ ...taskDetails, duration: value })
-            }
-            initialCheck.current = false
-        } else if (!initialCheck.current && value < maxDuration) {
-            setDuration(value)
-            setTaskDetails({ ...taskDetails, duration: value })
+        } else if (value > maxDuration) {
+            setDuration(maxDuration - 1)
         }
     }
 

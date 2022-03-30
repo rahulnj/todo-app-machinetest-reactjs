@@ -105,8 +105,9 @@ const TodoScreen = ({
             </Moment>}
             <CircularSlider
                 taskDetails={taskDetails}
-                disableDurationSlider={disableDurationSlider}
                 setTaskDetails={setTaskDetails}
+                disableDurationSlider={disableDurationSlider}
+                setDisableDurationSlider={setDisableDurationSlider}
             />
             {
                 durationError &&

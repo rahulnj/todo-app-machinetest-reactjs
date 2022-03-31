@@ -17,7 +17,7 @@ const App = () => {
   const [taskError, setTaskError] = useState(false)
   const [timeAndDateError, setTimeAndDateError] = useState(false)
   const [disableDurationSlider, setDisableDurationSlider] = useState(true)
-  const [showAddButton, setShowAddButton] = useState(false)
+
 
 
   return (
@@ -26,10 +26,8 @@ const App = () => {
         taskError={taskError}
         taskDetails={taskDetails}
         setTaskError={setTaskError}
-        showAddButton={showAddButton}
         durationError={durationError}
         setTaskDetails={setTaskDetails}
-        setShowAddButton={setShowAddButton}
         timeAndDateError={timeAndDateError}
         setDurationError={setDurationError}
         setToggleCalendar={setToggleCalendar}

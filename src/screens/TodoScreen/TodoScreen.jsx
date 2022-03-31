@@ -41,15 +41,6 @@ const TodoScreen = ({
         taskInputRef.current.focus()
     }, [])
 
-    useEffect(() => {
-        const { task, duration, time, date } = taskDetails;
-        if (task && duration > 0 && time && date) {
-            setShowAddButton(true)
-        } else {
-            setShowAddButton(false)
-        }
-    }, [taskDetails])
-
     const addTaskHandler = () => {
         if (taskDetails.duration !== 0) {
             dispatch(addTask(taskDetails))

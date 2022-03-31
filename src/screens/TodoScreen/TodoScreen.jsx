@@ -48,7 +48,7 @@ const TodoScreen = ({
         } else {
             setShowAddButton(false)
         }
-    }, [taskDetails, setShowAddButton])
+    }, [taskDetails])
 
     const addTaskHandler = () => {
         if (taskDetails.duration !== 0) {

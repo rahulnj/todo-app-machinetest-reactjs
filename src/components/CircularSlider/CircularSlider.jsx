@@ -5,7 +5,7 @@ import { CircleSlider } from "react-circle-slider";
 import { useSelector } from 'react-redux';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { MAX_DURATION_MILLISECONDS, MAX_DURATION_SECONDS } from '../../MinuteConversion';
+import { MAX_DURATION_MILLISECONDS, MAX_DURATION_MINUTES } from '../../MinuteConversion';
 
 const CircularSlider = ({
     taskDetails,
@@ -17,7 +17,7 @@ const CircularSlider = ({
     const { taskList } = useSelector((state) => state.taskReducer)
 
     const [duration, setDuration] = useState(0);
-    const [maxDuration, setMaxDuration] = useState(MAX_DURATION_SECONDS);
+    const [maxDuration, setMaxDuration] = useState(MAX_DURATION_MINUTES);
 
     const initialUpdate = useRef(true)
     const initialCheck = useRef(true)
@@ -39,7 +39,7 @@ const CircularSlider = ({
             if (timeGap < MAX_DURATION_MILLISECONDS) {
                 setMaxDuration((timeGap / 1000) / 60)
             } else if (timeGap > MAX_DURATION_MILLISECONDS) {
-                setMaxDuration(MAX_DURATION_SECONDS)
+                setMaxDuration(MAX_DURATION_MINUTES)
             }
         }
     }, [disableDurationSlider])
